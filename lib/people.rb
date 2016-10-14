@@ -12,10 +12,11 @@ module People
       @nc = @name_chars
 
       @opts = {
-        :strip_mr   => true,
-        :strip_mrs  => false,
-        :case_mode  => 'proper',
-        :couples    => false
+        :strip_mr      => true,
+        :strip_mrs     => false,
+        :case_mode     => 'proper',
+        :couples       => false,
+        :ignore_titles => false
       }.merge! opts
 
       ## constants
@@ -185,7 +186,7 @@ module People
         a = names[0]
         b = names[1]
 
-        out[:title2] = get_title( b );
+        out[:title2] = get_title( b ) unless @opts[:ignore_titles];
         out[:suffix2] = get_suffix( b );
 
         b.strip!
@@ -198,7 +199,7 @@ module People
         out[:middle2] = parts[3]
         out[:last] = parts[4]
 
-        out[:title] = get_title( a );
+        out[:title] = get_title( a ) unless @opts[:ignore_titles];
         out[:suffix] = get_suffix( a );
 
         a.strip!
@@ -220,7 +221,7 @@ module People
 
       else
 
-        out[:title] = get_title( name );
+        out[:title] = get_title( name ) unless @opts[:ignore_titles];
         out[:suffix] = get_suffix( name );
 
         parts = get_name_parts( name )
